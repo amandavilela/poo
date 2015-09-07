@@ -27,27 +27,27 @@ public class Aplic {
             
             if(opcao==1) {
                 System.out.println("Numero do quarto: "+nQuarto);
-                if(objQuarto.getSituacao()==false) {
-                    System.out.println("Situacao: Liberado");
+                if(objQuarto.getSituacao()) {
+                    System.out.println("Situacao: Reservado");
                 }
                 else {
-                    System.out.println("Situacao: Reservado");
+                    System.out.println("Situacao: Liberado");
                 }
             } 
             
             else if(opcao==2) {
-                if(objQuarto.getSituacao() == false) {
+                if(objQuarto.getSituacao()) {
+                    System.out.println("Erro: Esse quarto já se encontra reservado");
+                } else {
                     System.out.println("Digite o RG do hóspede: ");
                     int rg = Entrada.nextInt();
                     objQuarto.reservar(rg);
                     System.out.println("O quarto foi reservado com sucesso");
-                } else {
-                    System.out.println("Erro: Esse quarto já se encontra reservado");
                 }
             } 
             
             else if(opcao==3) {
-                if(objQuarto.getSituacao() == true) {
+                if(objQuarto.getSituacao()) {
                     System.out.println("Digite a quantidade de dias: ");
                     int dias = Entrada.nextInt();
                     System.out.println("O quarto foi liberado com sucesso e o valor da hospedagem é de "

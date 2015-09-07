@@ -15,7 +15,7 @@ public class QuartoHotel {
     
     public void reservar(int rg) {
         numRG = rg;
-        situacao = true;
+        situacao = true; //ocupado
     }
 
     public double liberar(int d) {
@@ -24,6 +24,10 @@ public class QuartoHotel {
         numRG = 0;
         situacao = false;
         return valor;
+    }
+    
+    public double getNumQuarto() {
+        return numQuarto;
     }
     
     public boolean getSituacao() {
