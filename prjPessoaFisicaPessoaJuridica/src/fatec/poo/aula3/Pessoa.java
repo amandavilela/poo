@@ -1,9 +1,10 @@
 package fatec.poo.aula3;
 
 public abstract class Pessoa {
+    
     private String nome;
-    private int anoInscricao;
-    private double totalCompras;
+    int anoInscricao;
+    double totalCompras;
     
     public Pessoa(String nome, int anoInscricao){
         this.nome = nome;

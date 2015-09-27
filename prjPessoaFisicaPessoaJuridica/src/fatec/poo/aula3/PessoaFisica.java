@@ -13,7 +13,7 @@ public class PessoaFisica extends Pessoa {
     public double calcBonus(int anoAtual) {
         double bonus = 0;
         if (super.totalCompras >= 12000) {
-            bonus = (super.anoInscricao - anoAtual)*base;
+            bonus = (anoAtual - super.anoInscricao)*base;
         }
         return bonus;
     }
