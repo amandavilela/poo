@@ -22,7 +22,7 @@ public abstract class Pessoa {
         return totalCompras;
     }
     
-    abstract public double calcBonus();
+    abstract public double calcBonus(int anoAtual);
     
     public void addCompras(double vlrCompra) {
         this.totalCompras += vlrCompra;
