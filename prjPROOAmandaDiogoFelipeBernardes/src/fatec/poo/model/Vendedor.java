@@ -29,9 +29,9 @@ public class Vendedor extends Pessoa{
         this.comissao = comissao;
     }
      
-    public void addPedido(Pedido p){
-        pedidos.add(p);
-        p.setVendedor(this);
+    public void addPedido(Pedido pedido){
+        pedidos.add(pedido);
+        pedido.setVendedor(this);
     }
     
 }

@@ -39,8 +39,8 @@ public class Pedido {
         this.status = false;
     }
 
-    public void addItem(ItemPedido ip){
-        itens.add(ip);
+    public void addItem(ItemPedido itemPedido){
+        itens.add(itemPedido);
     }
      
     public void setCliente(Cliente cliente) {
