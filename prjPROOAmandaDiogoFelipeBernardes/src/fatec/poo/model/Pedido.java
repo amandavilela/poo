@@ -39,7 +39,16 @@ public class Pedido {
         this.status = false;
     }
 
-     public void addPedido(ItemPedido ip){
+    public void addItem(ItemPedido ip){
         itens.add(ip);
     }
+     
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }    
+    
 }

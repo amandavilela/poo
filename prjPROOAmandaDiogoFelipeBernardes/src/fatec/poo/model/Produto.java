@@ -45,5 +45,7 @@ public class Produto {
         this.estoqueMin = estoqueMin;
     }
     
-    
+    public void setItemPedido(ItemPedido itemPedido) {
+        this.itemPedido = itemPedido;
+    }
 }
