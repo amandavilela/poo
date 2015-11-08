@@ -6,6 +6,7 @@ public class Produto {
     private int qtdeDisponivel;
     private double precoUnit;
     private int estoqueMin;
+    private ItemPedido itemPedido;
     
     public Produto(int codigo, String descricao) {
         this.codigo = codigo;

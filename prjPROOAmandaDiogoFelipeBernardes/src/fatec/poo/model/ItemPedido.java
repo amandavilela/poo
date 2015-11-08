@@ -3,6 +3,7 @@ package fatec.poo.model;
 public class ItemPedido {
     private int numeroItem;
     private int qtdeVendida;
+    private Produto produto;
     
     public ItemPedido(int numeroItem, int qtdeVendida) {
         this.numeroItem = numeroItem;

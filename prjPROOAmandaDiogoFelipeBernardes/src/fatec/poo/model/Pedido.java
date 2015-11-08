@@ -1,15 +1,21 @@
 package fatec.poo.model;
 
+import java.util.ArrayList;
+
 public class Pedido {
     private int numero;
     private String dataEmissaoPedido;
     private String dataPagto;
     private boolean status;
+    private Cliente cliente;
+    private Vendedor vendedor;
+    private ArrayList<ItemPedido> itens;
     
     public Pedido(int numero, String dataEmissao) {
         this.numero = numero;
         this.dataEmissaoPedido = dataEmissao;
         this.status = true;
+        itens = new ArrayList<ItemPedido>();
     }
 
     public int getNumero() {
@@ -32,5 +38,8 @@ public class Pedido {
         this.dataPagto = dataPagto;
         this.status = false;
     }
-    
+
+     public void addPedido(ItemPedido ip){
+        itens.add(ip);
+    }
 }
