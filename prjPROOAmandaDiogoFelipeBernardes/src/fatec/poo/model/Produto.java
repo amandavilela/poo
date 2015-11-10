@@ -3,7 +3,7 @@ package fatec.poo.model;
 public class Produto {
     private int codigo;
     private String descricao;
-    private int qtdeDisponivel;
+    private static int qtdeDisponivel;
     private double precoUnit;
     private int estoqueMin;
     private ItemPedido itemPedido;
@@ -33,8 +33,8 @@ public class Produto {
         return estoqueMin;
     }
 
-    public void setQtdeDisponivel(int qtdeDisponivel) {
-        this.qtdeDisponivel = qtdeDisponivel;
+    public static void setQtdeDisponivel(int qtdeVendida) {
+        Produto.qtdeDisponivel -= qtdeVendida;
     }
 
     public void setPrecoUnit(double precoUnit) {

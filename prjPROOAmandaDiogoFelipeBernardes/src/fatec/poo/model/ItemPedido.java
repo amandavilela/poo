@@ -4,30 +4,35 @@ import java.util.ArrayList;
 
 public class ItemPedido {
     private int numeroItem;
-    private int qtdeVendida;
+    private int quantidade;
     private Produto produto;
     private Pedido pedido;
     
     public ItemPedido(int numeroItem, int qtdeVendida) {
         this.numeroItem = numeroItem;
-        this.qtdeVendida = qtdeVendida;
+        this.quantidade = quantidade;
     }
 
     public int getNumeroItem() {
         return numeroItem;
     }
 
-    public int getQtdeVendida() {
-        return qtdeVendida;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setQtdeVendida(int qtdeVendida) {
-        this.qtdeVendida = qtdeVendida;
+    public void setQuantidade(int qtdeVendida) {
+        this.quantidade = qtdeVendida;
     }
  
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    public Produto getProduto() {
+        return produto;
+    }
+    
     
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
