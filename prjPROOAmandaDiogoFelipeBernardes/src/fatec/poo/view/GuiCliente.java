@@ -107,7 +107,7 @@ public class GuiCliente extends javax.swing.JFrame {
 
         jLabel1.setText("Limite Disponível");
 
-        lblVlrLimiteDisponivel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblVlrLimiteDisponivel.setBorder(new javax.swing.border.SoftBevelBorder(0));
         lblVlrLimiteDisponivel.setEnabled(false);
 
         lblUf.setText("UF");
