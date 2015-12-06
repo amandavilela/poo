@@ -39,6 +39,7 @@ public class GuiMenu extends javax.swing.JFrame {
         menuItemEmitirPedido = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Controle de Vendas");
 
         menuCadastros.setText("Cadastros");
 
