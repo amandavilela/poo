@@ -8,6 +8,10 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -34,7 +38,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblDescricao" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                      <Component id="txtDescrição" min="-2" pref="469" max="-2" attributes="0"/>
+                      <Component id="txtDescricao" min="-2" pref="469" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblQtdeDisponivel" min="-2" max="-2" attributes="0"/>
@@ -83,7 +87,7 @@
                       <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                       <Component id="lblDescricao" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="txtDescrição" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDescricao" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -149,6 +153,9 @@
         <Property name="text" type="java.lang.String" value="Alterar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnExcluir">
       <Properties>
@@ -158,6 +165,9 @@
         <Property name="text" type="java.lang.String" value="Excluir"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSair">
       <Properties>
@@ -175,7 +185,7 @@
         <Property name="focusCycleRoot" type="boolean" value="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDescri&#xe7;&#xe3;o">
+    <Component class="javax.swing.JTextField" name="txtDescricao">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
