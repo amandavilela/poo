@@ -67,7 +67,7 @@ public class DaoVendedor {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next() == true) {
-                v = new Vendedor (cpf, rs.getString("nome"));
+                v = new Vendedor (cpf, rs.getString("nome"), Double.parseDouble(rs.getString("salBase")));
             }
         }
         catch (SQLException ex) { 

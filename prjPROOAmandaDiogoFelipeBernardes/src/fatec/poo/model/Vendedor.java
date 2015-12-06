@@ -8,9 +8,10 @@ public class Vendedor extends Pessoa{
     private double comissao;
     private ArrayList<Pedido> pedidos;
     
-    public Vendedor(String cpf, String nome){
+    public Vendedor(String cpf, String nome, double salarioBase){
         super(cpf,nome);
-        pedidos = new ArrayList<Pedido>();
+        this.salarioBase = salarioBase;
+        this.pedidos = new ArrayList<Pedido>();
     }
 
     public double getSalarioBase() {

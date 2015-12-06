@@ -12,10 +12,8 @@ public class Pessoa {
     private String telefone;
     
     public Pessoa(String cpf, String nome){
-        
         this.cpf = cpf;
         this.nome = nome;
-        
     }
     
     public String getCpf() {
@@ -80,6 +78,38 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public boolean validaCPF(String cpf) {
+        int cpfArray[] = new int[11], dv1=0, dv2=0;  
+  
+        cpf = cpf.replace(".", "");  
+        cpf = cpf.replace("-", "");  
+
+        if (this.cpf.length()!=11) {  
+            return false;  
+        }
+
+        for(int i=0;i<11;i++) {  
+            cpf[i] = Integer.parseInt(this.cpf.substring(i, i+1));
+        }
+        for(int i=0;i<9;i++) {  
+            dv1 += cpf[i] * (i+1);  
+        }
+        
+        cpf[9] = dv1 = dv1 % 11;
+        
+        for(int i=0;i<10;i++) {  
+            dv2 += cpf[i] * i;
+        }
+        cpf[10] = dv2 = dv2 % 11;  
+        if(dv1>9) cpf[9]=0;      if(dv2>9) cpf[10]=0;  
+
+        if(Integer.parseInt(this.cpf.substring(9,10))!= cpf[9]||  
+                Integer.parseInt(this.cpf.substring(10,11))!=cpf[10])  
+            return false;  
+        else  
+            return true; 
     }
     
 }

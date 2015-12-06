@@ -334,7 +334,7 @@ public class GuiVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTaxaComissaoActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        vendedor = new Vendedor(txtCpf.getText(), txtNome.getText());
+        vendedor = new Vendedor(txtCpf.getText(), txtNome.getText(), Double.parseDouble(txtSalBase.getText()));
         daoVendedor.inserir(vendedor);
          
         txtCpf.setText("");
