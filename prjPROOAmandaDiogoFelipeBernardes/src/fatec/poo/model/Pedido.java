@@ -41,7 +41,7 @@ public class Pedido {
 
     public void addItem(ItemPedido itemPedido){
         itens.add(itemPedido);
-        Produto.setQtdeDisponivel(itemPedido.getQuantidade());
+        Produto.setQtdeDisponivel(itemPedido.getQuantidade()-1);
     }
      
     public void setCliente(Cliente cliente) {
