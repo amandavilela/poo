@@ -84,32 +84,42 @@ public class Pessoa {
         int cpfArray[] = new int[11], dv1=0, dv2=0;  
   
         cpf = cpf.replace(".", "");  
-        cpf = cpf.replace("-", "");  
+        cpf = cpf.replace("-", "");
 
         if (this.cpf.length()!=11) {  
             return false;  
         }
 
-        for(int i=0;i<11;i++) {  
-            cpf[i] = Integer.parseInt(this.cpf.substring(i, i+1));
-        }
-        for(int i=0;i<9;i++) {  
-            dv1 += cpf[i] * (i+1);  
+        for (int i=0;i<11;i++) {  
+            cpfArray[i] = Integer.parseInt(this.cpf.substring(i, i+1));
         }
         
-        cpf[9] = dv1 = dv1 % 11;
-        
-        for(int i=0;i<10;i++) {  
-            dv2 += cpf[i] * i;
+        for (int i=0;i<9;i++) {  
+            dv1 += cpfArray[i] * (i+1);
         }
-        cpf[10] = dv2 = dv2 % 11;  
-        if(dv1>9) cpf[9]=0;      if(dv2>9) cpf[10]=0;  
-
-        if(Integer.parseInt(this.cpf.substring(9,10))!= cpf[9]||  
-                Integer.parseInt(this.cpf.substring(10,11))!=cpf[10])  
-            return false;  
-        else  
-            return true; 
+        
+        cpfArray[9] = dv1 = dv1 % 11;
+        
+        for (int i=0;i<10;i++) {  
+            dv2 += cpfArray[i] * i;
+        }
+        
+        cpfArray[10] = dv2 = dv2 % 11;  
+        
+        if (dv1>9) {
+            cpfArray[9]=0;
+        }
+        
+        if (dv2>9) {
+            cpfArray[10]=0;  
+        }
+        
+        if (Integer.parseInt(this.cpf.substring(9,10))!= cpfArray[9] || Integer.parseInt(this.cpf.substring(10,11))!=cpfArray[10]) {
+            return true;
+        }
+        else {
+            return false; 
+        }
     }
     
 }

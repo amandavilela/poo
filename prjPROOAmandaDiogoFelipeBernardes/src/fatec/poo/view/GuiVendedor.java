@@ -279,8 +279,17 @@ public class GuiVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        
+        
         vendedor = null;
-        vendedor = daoVendedor.consultar(txtCpf.getText());
+        if (vendedor.validaCPF(txtCpf.getText())) {
+            System.out.println("ok");
+        } else {
+            System.out.println("nada OK");
+        }
+        
+        /*vendedor = daoVendedor.consultar(txtCpf.getText());
+      
 
         if (vendedor == null) {
             txtCpf.setEnabled(false);
@@ -327,6 +336,7 @@ public class GuiVendedor extends javax.swing.JFrame {
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
+        */
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void txtTaxaComissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaxaComissaoActionPerformed
@@ -334,6 +344,7 @@ public class GuiVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTaxaComissaoActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+       
         vendedor = new Vendedor(txtCpf.getText(), txtNome.getText(), Double.parseDouble(txtSalBase.getText()));
         daoVendedor.inserir(vendedor);
          
