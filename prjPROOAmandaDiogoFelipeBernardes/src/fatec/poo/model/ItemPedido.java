@@ -1,7 +1,5 @@
 package fatec.poo.model;
 
-import java.util.ArrayList;
-
 public class ItemPedido {
     private int numeroItem;
     private int quantidade;
@@ -10,7 +8,7 @@ public class ItemPedido {
     
     public ItemPedido(int numeroItem, int qtdeVendida) {
         this.numeroItem = numeroItem;
-        this.quantidade = quantidade;
+        this.quantidade = qtdeVendida;
     }
 
     public int getNumeroItem() {
@@ -32,7 +30,6 @@ public class ItemPedido {
     public Produto getProduto() {
         return produto;
     }
-    
     
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
