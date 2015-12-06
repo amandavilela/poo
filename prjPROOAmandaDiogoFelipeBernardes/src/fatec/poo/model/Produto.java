@@ -6,7 +6,6 @@ public class Produto {
     private static int qtdeDisponivel;
     private double precoUnit;
     private int estoqueMin;
-    private ItemPedido itemPedido;
     
     public Produto(int codigo, String descricao) {
         this.codigo = codigo;
@@ -45,7 +44,4 @@ public class Produto {
         this.estoqueMin = estoqueMin;
     }
     
-    public void setItemPedido(ItemPedido itemPedido) {
-        this.itemPedido = itemPedido;
-    }
 }
