@@ -62,12 +62,18 @@ public class DaoCliente {
        
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("SELECT * from cliente where cpf = ?");
+            ps = conn.prepareStatement("SELECT * from cliente_poo where cpf = ?");
             ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
             
             if (rs.next() == true) {
                 c = new Cliente (cpf, rs.getString("nome"), rs.getDouble("limite_cred"));
+                c.setCep(rs.getString("cep"));
+                c.setCidade(rs.getString("cidade"));
+                c.setDdd(rs.getString("ddd"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setUf(rs.getString("uf"));
+                c.setEndereco(rs.getString("endereco"));
             }
         }
         catch (SQLException ex) { 

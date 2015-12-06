@@ -20,17 +20,6 @@ public class GuiCliente extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
-        Conexao conexao = new Conexao("IBD0020030481413011","IBD0020030481413011");
-        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
-        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
-        DaoCliente daoCliente = new DaoCliente(conexao.conectar());
-    }
-     
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-        conexao.fecharConexao();
-        dispose();
-    }  
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -61,6 +50,14 @@ public class GuiCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Cliente");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lblCPF.setText("CPF");
 
@@ -104,7 +101,13 @@ public class GuiCliente extends javax.swing.JFrame {
 
         lblUf.setText("UF");
 
+        cbxUf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         cbxUf.setEnabled(false);
+        cbxUf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxUfActionPerformed(evt);
+            }
+        });
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
@@ -138,6 +141,11 @@ public class GuiCliente extends javax.swing.JFrame {
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,12 +253,10 @@ public class GuiCliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+                                   
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        dispose();
-    }                                       
-
-    private void main(String args[]) {
+    private void main(String args[]) 
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -271,6 +277,9 @@ public class GuiCliente extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GuiCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GuiCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+       
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         cliente = null;
@@ -296,11 +305,11 @@ public class GuiCliente extends javax.swing.JFrame {
             txtCpf.setText(cliente.getCpf());
             txtEndereco.setText(cliente.getEndereco());
             txtCidade.setText(cliente.getCidade());
-            cbxUf.setText(cliente.getUf());
+            cbxUf.setSelectedItem(cliente.getUf());
             txtDdd.setText(cliente.getDdd());
             txtTelefone.setText(cliente.getTelefone());
             txtCep.setText(cliente.getCep());
-            txtLimiteCredito.setText(cliente.getLimiteCredito());
+            txtLimiteCredito.setText(Double.toString(cliente.getLimiteCred()));
 
             txtCpf.setEnabled(false); 
             txtNome.setEnabled(true);
@@ -321,7 +330,7 @@ public class GuiCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        cliente = new Cliente(txtCpf.getText(), txtNome.getText());
+        cliente = new Cliente(txtCpf.getText(), txtNome.getText(), Double.parseDouble(lblVlrLimiteDisponivel.getText()));
         daoCliente.inserir(cliente);
          
         txtCpf.setText("");
@@ -347,20 +356,67 @@ public class GuiCliente extends javax.swing.JFrame {
         btnConsultar.setEnabled(true);
         btnIncluir.setEnabled(false);
     }//GEN-LAST:event_btnIncluirActionPerformed
-/*
+
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
-*/
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("IBD0020030481323008","IBD0020030481323008");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        daoCliente = new DaoCliente(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        conexao.fecharConexao();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
+            daoCliente.excluir(cliente); 
+            
+            txtCpf.setText("");
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtCidade.setText("");
+            txtDdd.setText("");
+            txtTelefone.setText("");
+            txtCep.setText("");
+            txtLimiteCredito.setText("");
+
+            txtCpf.setEnabled(true);
+            txtCpf.requestFocus();
+            
+            txtNome.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtCidade.setEnabled(false);
+            cbxUf.setEnabled(false);
+            txtDdd.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtCep.setEnabled(false); 
+            txtLimiteCredito.setEnabled(false);
+            
+            btnConsultar.setEnabled(true);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }    
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void cbxUfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxUfActionPerformed
+
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){
             cliente.setNome(txtNome.getText());
-            cliente.setEndereco(txtEndereco.setText());
-            cliente.setCidade(txtCidade.setText());
-            cliente.setDdd(txtDdd.setText());
-            cliente.setTelefone(txtTelefone.setText());
-            cliente.setCep(txtCep.gsetText());
-            cliente.setLimiteCredito(txtLimiteCredito.setText());
+            cliente.setEndereco(txtEndereco.getText());
+            cliente.setCidade(txtCidade.getText());
+            cliente.setDdd(txtDdd.getText());
+            cliente.setTelefone(txtTelefone.getText());
+            cliente.setCep(txtCep.getText());
             daoCliente.alterar(cliente);
         } 
         
@@ -392,46 +448,6 @@ public class GuiCliente extends javax.swing.JFrame {
        
     }                                          
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
-            daoCliente.excluir(cliente); 
-            
-            txtCpf.setText("");
-            txtNome.setText("");
-            txtEndereco.setText("");
-            txtCidade.setText("");
-            txtDdd.setText("");
-            txtTelefone.setText("");
-            txtCep.setText("");
-            txtLimiteCredito.setText("");
-
-            txtCpf.setEnabled(true);
-            txtCpf.requestFocus();
-            
-            txtNome.setEnabled(false);
-            txtEndereco.setEnabled(false);
-            txtCidade.setEnabled(false);
-            cbxUf.setEnabled(false);
-            txtDdd.setEnabled(false);
-            txtTelefone.setEnabled(false);
-            txtCep.setEnabled(false);
-            txtLimiteCredito.setEnabled(false);
-            
-            btnConsultar.setEnabled(true);
-            btnIncluir.setEnabled(false);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-        }    
-    }
-    
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GuiCliente().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnConsultar;
@@ -458,4 +474,7 @@ public class GuiCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+    private DaoCliente daoCliente=null;
+    private Cliente cliente=null;
+    private Conexao conexao=null;
 }
