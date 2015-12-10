@@ -30,8 +30,6 @@ public class DaoPedido {
         PreparedStatement ps = null;     
         
         try {
-
-            
             ps = conn.prepareStatement("SELECT * from pedido_poo where numero = ?");
             ps.setString(1, numero);
             ResultSet rs = ps.executeQuery();
@@ -66,7 +64,7 @@ public class DaoPedido {
     public void inserir (Pedido pedido) {
         PreparedStatement ps = null;
         try{
-            ps = conn.prepareStatement("INSERT INTO pedidos_poo(numero, dataEmissaoPedido, dataPagto, status)VALUES(?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO pedido_poo(numero, dataEmissaoPedido, dataPagto, status)VALUES(?,?,?,?)");
             ps.setString(1, Integer.toString(pedido.getNumero()));
             ps.setString(2, pedido.getDataEmissaoPedido());
             ps.setString(3, pedido.getDataPagto());
@@ -81,7 +79,7 @@ public class DaoPedido {
         public void alterar(Pedido pedido){
          PreparedStatement ps = null;
         try{
-            ps = conn.prepareStatement("UPDATE pedidos_poo set numero=?, dataEmissaoPedido=?, dataPagto=?, status=? WHERE numero = ?" );
+            ps = conn.prepareStatement("UPDATE pedido_poo set numero=?, dataEmissaoPedido=?, dataPagto=?, status=? WHERE numero = ?" );
             ps.setString(1, Integer.toString(pedido.getNumero()));
             ps.setString(2, pedido.getDataEmissaoPedido());
             ps.setString(3, pedido.getDataPagto());
@@ -99,7 +97,7 @@ public class DaoPedido {
         public void excluir(Pedido pedido) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM pedidos_poo where numero = ?");
+            ps = conn.prepareStatement("DELETE FROM pedido_poo where numero = ?");
             
            ps.setString(1, Integer.toString(pedido.getNumero()));
                       
