@@ -11,8 +11,6 @@ import fatec.poo.model.ValidaCPF;
 import javax.swing.JOptionPane;
 
 public class GuiEmitirPedido extends javax.swing.JFrame {
-    private Object daoCliente;
-
 
     public GuiEmitirPedido() {
         initComponents();
@@ -501,7 +499,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         //conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
         //daoPedido = new DaoPedido(conexao.conectar());
         
-        conexao = new Conexao("system","aaaa");
+        conexao = new Conexao("system","123");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
         conexao.setConnectionString("jdbc:oracle:thin:@localhost:1521:xe");  
         daoPedido = new DaoPedido(conexao.conectar());
@@ -512,13 +510,15 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     private void btnConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarClienteActionPerformed
 
         if (ValidaCPF.validaCPF(txtCpfCliente.getText())){
+            
             Cliente cliente = null;
             
-            String cpf = txtCpfCliente.getText();       
+            String cpf = txtCpfCliente.getText();  
+            
             cpf = cpf.replace(".","");
             cpf = cpf.replace("-","");
-            //cliente = daoCliente.consultar(cpf);
-            //cliente = daoCliente.consultar(cpf);
+            
+            cliente = daoCliente.consultar(cpf);
 
         if (cliente == null) {
             System.out.println("erro: cpf não encontrado");
@@ -602,7 +602,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private DaoPedido daoPedido=null;
     private DaoVendedor daoVendedor=null;
-    //private DaoCliente daoCliente=null;
+    private DaoCliente daoCliente=null;
     private Pedido pedido=null;
     private Conexao conexao=null;
 }
