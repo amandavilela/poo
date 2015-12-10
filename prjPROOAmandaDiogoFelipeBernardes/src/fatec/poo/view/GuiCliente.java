@@ -96,7 +96,7 @@ public class GuiCliente extends javax.swing.JFrame {
 
         jLabel1.setText("Limite Disponível");
 
-        lblVlrLimiteDisponivel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblVlrLimiteDisponivel.setBorder(new javax.swing.border.SoftBevelBorder(0));
         lblVlrLimiteDisponivel.setEnabled(false);
 
         lblUf.setText("UF");
@@ -287,6 +287,7 @@ public class GuiCliente extends javax.swing.JFrame {
        
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+
         if (txtCpf.getText().length() != 11) {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
         } else {
@@ -453,7 +454,9 @@ public class GuiCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCpfActionPerformed
 
+    
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){
             cliente.setNome(txtNome.getText());
             cliente.setEndereco(txtEndereco.getText());

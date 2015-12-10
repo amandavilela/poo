@@ -30,6 +30,8 @@ public class DaoPedido {
         PreparedStatement ps = null;     
         
         try {
+
+            
             ps = conn.prepareStatement("SELECT * from pedido_poo where numero = ?");
             ps.setString(1, numero);
             ResultSet rs = ps.executeQuery();

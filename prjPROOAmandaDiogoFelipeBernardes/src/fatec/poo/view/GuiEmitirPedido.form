@@ -195,9 +195,15 @@
                   <Component id="lblNumeroPedido" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txtNumeroPedido" min="-2" pref="79" max="-2" attributes="0"/>
+<<<<<<< HEAD
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnConsultarPedido" linkSize="3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="236" max="32767" attributes="0"/>
+=======
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Component id="btnConsultarPedido" linkSize="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="243" max="32767" attributes="0"/>
+>>>>>>> 7ecb2f127654dbf8d4ff79bfa2ba56c330cecc68
                   <Component id="lblDataPedido" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="txtDataPedido" min="-2" pref="75" max="-2" attributes="0"/>
@@ -341,7 +347,11 @@
                   <Component id="txtCpfVendedor" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                   <EmptySpace pref="120" max="32767" attributes="0"/>
+=======
+                  <EmptySpace pref="106" max="32767" attributes="0"/>
+>>>>>>> 7ecb2f127654dbf8d4ff79bfa2ba56c330cecc68
                   <Component id="jlblCpfVendedor" min="-2" pref="301" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
