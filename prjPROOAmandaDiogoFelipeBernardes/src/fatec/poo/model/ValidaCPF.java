@@ -68,4 +68,19 @@ public class ValidaCPF {
         //comparar o digito verificador do cpf com o primeiro resto + o segundo resto.
         return nDigVerific.equals(nDigResult);
     }
+    
+    static public boolean isNumeric(String str)  
+    {  
+        try  
+        {  
+          double d = Double.parseDouble(str);  
+        }  
+        catch(NumberFormatException nfe)  
+        {  
+          return false;  
+        }  
+        return true;  
+    }
+    
+    
 }

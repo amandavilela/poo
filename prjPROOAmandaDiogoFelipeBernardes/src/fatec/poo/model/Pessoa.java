@@ -85,7 +85,14 @@ public class Pessoa {
       int     digito1, digito2, resto;
       int     digitoCPF;
       String  nDigResult;
-
+      
+      if (strCpf.equals("00000000000") || strCpf.equals("11111111111") || strCpf.equals("22222222222") 
+			|| strCpf.equals("33333333333") || strCpf.equals("44444444444") || strCpf.equals("55555555555") 
+			|| strCpf.equals("66666666666") || strCpf.equals("77777777777") || strCpf.equals("88888888888") || strCpf.equals("99999999999") 
+			) {
+            return (false);
+        }
+      
       d1 = d2 = 0;
       digito1 = digito2 = resto = 0;
 

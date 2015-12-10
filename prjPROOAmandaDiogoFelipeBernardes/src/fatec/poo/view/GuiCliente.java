@@ -4,6 +4,7 @@ import fatec.poo.dao.Conexao;
 import fatec.poo.dao.DaoCliente;
 import fatec.poo.model.Cliente;
 import fatec.poo.model.ValidaCPF;
+import fatec.poo.model.isNumeric;
 
 import javax.swing.JOptionPane;
 
@@ -287,67 +288,80 @@ public class GuiCliente extends javax.swing.JFrame {
        
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        String cpf = txtCpf.getText();
+        cpf = cpf.replace(".","");
+        cpf = cpf.replace("-","");
+        cpf = cpf.replace(" ","");
+        
+       // JOptionPane.showMessageDialog(null,cpf);
+        
+        if(cpf.equals("")){
+             JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
+        }else{
+            if(ValidaCPF.isNumeric(cpf)== false){
+                JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
+                
+            }else{    
+                if (cpf.length() != 11) {
+                    JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
+                }else {
+                   cliente = null;
+                   cliente = daoCliente.consultar(txtCpf.getText());
 
-        if (txtCpf.getText().length() != 11) {
-            JOptionPane.showMessageDialog(null, "CPF inválido!");
-        } else {
-           cliente = null;
-           cliente = daoCliente.consultar(txtCpf.getText());
+                   validaCPF = new ValidaCPF(txtCpf.getText());
 
-           validaCPF = new ValidaCPF(txtCpf.getText());
+                   if (ValidaCPF.validaCPF(cpf)){
+                        
+                      cliente = daoCliente.consultar(cpf);
 
-           if (ValidaCPF.validaCPF(txtCpf.getText()) ){
-              String cpf = txtCpf.getText();       
-              cpf = cpf.replace(".","");
-              cpf = cpf.replace("-",""); 
-              cliente = daoCliente.consultar(cpf);
+                       if (cliente == null) {
+                           txtCpf.setEnabled(false);
+                           txtNome.setEnabled(true);
+                           txtEndereco.setEnabled(true);
+                           txtCidade.setEnabled(true);
+                           cbxUf.setEnabled(true);
+                           txtDdd.setEnabled(true);
+                           txtTelefone.setEnabled(true);
+                           txtCep.setEnabled(true);
+                           txtLimiteCredito.setEnabled(true);
 
-               if (cliente == null) {
-                   txtCpf.setEnabled(false);
-                   txtNome.setEnabled(true);
-                   txtEndereco.setEnabled(true);
-                   txtCidade.setEnabled(true);
-                   cbxUf.setEnabled(true);
-                   txtDdd.setEnabled(true);
-                   txtTelefone.setEnabled(true);
-                   txtCep.setEnabled(true);
-                   txtLimiteCredito.setEnabled(true);
+                           btnConsultar.setEnabled(false);
+                           btnIncluir.setEnabled(true);
+                           btnAlterar.setEnabled(false);
+                           btnExcluir.setEnabled(false);
+                       } else {
+                           txtNome.setText(cliente.getNome());
+                           txtCpf.setText(cliente.getCpf());
+                           txtEndereco.setText(cliente.getEndereco());
+                           txtCidade.setText(cliente.getCidade());
+                           cbxUf.setSelectedItem(cliente.getUf());
+                           txtDdd.setText(cliente.getDdd());
+                           txtTelefone.setText(cliente.getTelefone());
+                           txtCep.setText(cliente.getCep());
+                           txtLimiteCredito.setText(Double.toString(cliente.getLimiteCred()));
 
-                   btnConsultar.setEnabled(false);
-                   btnIncluir.setEnabled(true);
-                   btnAlterar.setEnabled(false);
-                   btnExcluir.setEnabled(false);
-               } else {
-                   txtNome.setText(cliente.getNome());
-                   txtCpf.setText(cliente.getCpf());
-                   txtEndereco.setText(cliente.getEndereco());
-                   txtCidade.setText(cliente.getCidade());
-                   cbxUf.setSelectedItem(cliente.getUf());
-                   txtDdd.setText(cliente.getDdd());
-                   txtTelefone.setText(cliente.getTelefone());
-                   txtCep.setText(cliente.getCep());
-                   txtLimiteCredito.setText(Double.toString(cliente.getLimiteCred()));
+                           txtCpf.setEnabled(false); 
+                           txtNome.setEnabled(true);
+                           txtNome.requestFocus();
+                           txtEndereco.setEnabled(true);
+                           txtCidade.setEnabled(true);
+                           cbxUf.setEnabled(true);
+                           txtDdd.setEnabled(true);
+                           txtTelefone.setEnabled(true);
+                           txtCep.setEnabled(true);
+                           txtLimiteCredito.setEnabled(true);
 
-                   txtCpf.setEnabled(false); 
-                   txtNome.setEnabled(true);
-                   txtNome.requestFocus();
-                   txtEndereco.setEnabled(true);
-                   txtCidade.setEnabled(true);
-                   cbxUf.setEnabled(true);
-                   txtDdd.setEnabled(true);
-                   txtTelefone.setEnabled(true);
-                   txtCep.setEnabled(true);
-                   txtLimiteCredito.setEnabled(true);
-
-                   btnConsultar.setEnabled(false);
-                   btnIncluir.setEnabled(false);
-                   btnAlterar.setEnabled(true);
-                   btnExcluir.setEnabled(true);
-               }
-           }else{
-               JOptionPane.showMessageDialog(null, "CPF inválido!");
-           }
-        }    
+                           btnConsultar.setEnabled(false);
+                           btnIncluir.setEnabled(false);
+                           btnAlterar.setEnabled(true);
+                           btnExcluir.setEnabled(true);
+                       }
+                   }else{
+                       JOptionPane.showMessageDialog(null, "CPF inválido!");
+                   }
+                }
+            }
+        }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
@@ -356,42 +370,60 @@ public class GuiCliente extends javax.swing.JFrame {
         cpf = cpf.replace("-","");
         
         cliente = new Cliente(cpf, txtNome.getText(), Double.parseDouble(txtLimiteCredito.getText()));
-        
-        cliente.setCpf(cpf);
-        cliente.setNome(txtNome.getText());
-        cliente.setEndereco(txtEndereco.getText());
-        cliente.setCidade(txtCidade.getText());
-        cliente.setCep(txtCep.getText());
-        cliente.setUf((String)(cbxUf.getSelectedItem()));        
-        cliente.setDdd(txtDdd.getText());
-        cliente.setTelefone(txtTelefone.getText());
-        
-        daoCliente.inserir(cliente);
-        
-        txtCpf.setText("");
-        txtNome.setText("");
-        txtEndereco.setText("");
-        txtCidade.setText("");
-        txtDdd.setText("");
-        txtTelefone.setText("");
-        txtCep.setText("");
-        txtLimiteCredito.setText("");
-        
-        txtCpf.setEnabled(true);
-        txtCpf.requestFocus();
-        txtNome.setEnabled(false);
-        txtEndereco.setEnabled(false);
-        txtCidade.setEnabled(false);
-        cbxUf.setEnabled(false);
-        txtDdd.setEnabled(false);
-        txtTelefone.setEnabled(false);
-        txtCep.setEnabled(false);
-        txtLimiteCredito.setEnabled(false);
-        
-        btnConsultar.setEnabled(true);
-        btnIncluir.setEnabled(false);
-        
-        JOptionPane.showMessageDialog(null, "Cliente incluído com sucesso!");
+
+            if(n.isNumeric(txtDdd.getText()) == false){
+                JOptionPane.showMessageDialog(null, "DDD deve conter números.");
+            }else{
+                 if(n.isNumeric(txtTelefone.getText()) == false){
+                     JOptionPane.showMessageDialog(null, "Telefone deve conter números.");
+                    }else{
+                        if(n.isNumeric(txtCep.getText()) == false){
+                            JOptionPane.showMessageDialog(null, "CEP deve conter números.");
+                        }else{
+                             if(n.isNumeric(txtLimiteCredito.getText()) == false){
+                                JOptionPane.showMessageDialog(null, "CEP deve conter números.");
+
+                             }else{ 
+
+                                    cliente.setCpf(cpf);
+                                    cliente.setNome(txtNome.getText());
+                                    cliente.setEndereco(txtEndereco.getText());
+                                    cliente.setCidade(txtCidade.getText());
+                                    cliente.setCep(txtCep.getText());
+                                    cliente.setUf((String)(cbxUf.getSelectedItem()));        
+                                    cliente.setDdd(txtDdd.getText());
+                                    cliente.setTelefone(txtTelefone.getText());
+
+                                    daoCliente.inserir(cliente);
+
+                                    txtCpf.setText("");
+                                    txtNome.setText("");
+                                    txtEndereco.setText("");
+                                    txtCidade.setText("");
+                                    txtDdd.setText("");
+                                    txtTelefone.setText("");
+                                    txtCep.setText("");
+                                    txtLimiteCredito.setText("");
+
+                                    txtCpf.setEnabled(true);
+                                    txtCpf.requestFocus();
+                                    txtNome.setEnabled(false);
+                                    txtEndereco.setEnabled(false);
+                                    txtCidade.setEnabled(false);
+                                    cbxUf.setEnabled(false);
+                                    txtDdd.setEnabled(false);
+                                    txtTelefone.setEnabled(false);
+                                    txtCep.setEnabled(false);
+                                    txtLimiteCredito.setEnabled(false);
+
+                                    btnConsultar.setEnabled(true);
+                                    btnIncluir.setEnabled(false);
+
+                                    JOptionPane.showMessageDialog(null, "Cliente incluído com sucesso!");
+                                }
+                        }  
+                    }
+            }
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -527,4 +559,6 @@ public class GuiCliente extends javax.swing.JFrame {
     private Cliente cliente=null;
     private Conexao conexao=null;
     private ValidaCPF validaCPF=null;
+    private isNumeric n;
+    
 }

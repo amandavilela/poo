@@ -280,71 +280,80 @@ public class GuiVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-
-        if (txtCpf.getText().length() != 11) {
-            JOptionPane.showMessageDialog(null, "CPF inválido!");
-        } else {
-        
-            vendedor = null;
-            vendedor = daoVendedor.consultar(txtCpf.getText());
-
-            if (validaCPF.validaCPF(txtCpf.getText())) {
-                String cpf = txtCpf.getText();       
-                cpf = cpf.replace(".","");
-                cpf = cpf.replace("-","");
-
-                vendedor = daoVendedor.consultar(cpf);
-
-                if (vendedor == null) {
-                    txtCpf.setEnabled(false);
-                    txtNome.setEnabled(true);
-                    txtEndereco.setEnabled(true);
-                    txtCidade.setEnabled(true);
-                    cbxUf.setEnabled(true);
-                    txtDdd.setEnabled(true);
-                    txtTelefone.setEnabled(true);
-                    txtCep.setEnabled(true);
-                    txtSalBase.setEnabled(true);
-                    txtTaxaComissao.setEnabled(true);
-
-                    btnConsultar.setEnabled(false);
-                    btnIncluir.setEnabled(true);
-                    btnAlterar.setEnabled(false);
-                    btnExcluir.setEnabled(false);
+     String cpf = txtCpf.getText();       
+     cpf = cpf.replace(".","");
+     cpf = cpf.replace("-","");
+     cpf = cpf.replace(" ","");
+     
+      if(cpf.equals("")){
+             JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
+        }else{
+            if(ValidaCPF.isNumeric(cpf)== false){
+                JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
+            } else{
+                if (cpf.length() != 11) {
+                    JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
                 } else {
-                    txtNome.setText(vendedor.getNome());
-                    txtCpf.setText(vendedor.getCpf());
-                    txtEndereco.setText(vendedor.getEndereco());
-                    txtCidade.setText(vendedor.getCidade());
-                    cbxUf.setSelectedItem(vendedor.getUf());
-                    txtDdd.setText(vendedor.getDdd());
-                    txtTelefone.setText(vendedor.getTelefone());
-                    txtCep.setText(vendedor.getCep());
-                    txtSalBase.setText(Double.toString(vendedor.getSalarioBase()));
-                    txtTaxaComissao.setText(Double.toString(vendedor.getComissao()));
 
-                    txtCpf.setEnabled(false); 
-                    txtNome.setEnabled(true);
-                    txtNome.requestFocus();
-                    txtEndereco.setEnabled(true);
-                    txtCidade.setEnabled(true);
-                    cbxUf.setEnabled(true);
-                    txtDdd.setEnabled(true);
-                    txtTelefone.setEnabled(true);
-                    txtCep.setEnabled(true);
-                    txtSalBase.setEnabled(true);
-                    txtTaxaComissao.setEnabled(true);
+                    vendedor = null;
+                    vendedor = daoVendedor.consultar(txtCpf.getText());
 
-                    btnConsultar.setEnabled(false);
-                    btnIncluir.setEnabled(false);
-                    btnAlterar.setEnabled(true);
-                    btnExcluir.setEnabled(true);
+                    if (vendedor.validaCPF(cpf)) {
+
+                        vendedor = daoVendedor.consultar(cpf);
+
+                        if (vendedor == null) {
+                            txtCpf.setEnabled(false);
+                            txtNome.setEnabled(true);
+                            txtEndereco.setEnabled(true);
+                            txtCidade.setEnabled(true);
+                            cbxUf.setEnabled(true);
+                            txtDdd.setEnabled(true);
+                            txtTelefone.setEnabled(true);
+                            txtCep.setEnabled(true);
+                            txtSalBase.setEnabled(true);
+                            txtTaxaComissao.setEnabled(true);
+
+                            btnConsultar.setEnabled(false);
+                            btnIncluir.setEnabled(true);
+                            btnAlterar.setEnabled(false);
+                            btnExcluir.setEnabled(false);
+                        } else {
+                            txtNome.setText(vendedor.getNome());
+                            txtCpf.setText(vendedor.getCpf());
+                            txtEndereco.setText(vendedor.getEndereco());
+                            txtCidade.setText(vendedor.getCidade());
+                            cbxUf.setSelectedItem(vendedor.getUf());
+                            txtDdd.setText(vendedor.getDdd());
+                            txtTelefone.setText(vendedor.getTelefone());
+                            txtCep.setText(vendedor.getCep());
+                            txtSalBase.setText(Double.toString(vendedor.getSalarioBase()));
+                            txtTaxaComissao.setText(Double.toString(vendedor.getComissao()));
+
+                            txtCpf.setEnabled(false); 
+                            txtNome.setEnabled(true);
+                            txtNome.requestFocus();
+                            txtEndereco.setEnabled(true);
+                            txtCidade.setEnabled(true);
+                            cbxUf.setEnabled(true);
+                            txtDdd.setEnabled(true);
+                            txtTelefone.setEnabled(true);
+                            txtCep.setEnabled(true);
+                            txtSalBase.setEnabled(true);
+                            txtTaxaComissao.setEnabled(true);
+
+                            btnConsultar.setEnabled(false);
+                            btnIncluir.setEnabled(false);
+                            btnAlterar.setEnabled(true);
+                            btnExcluir.setEnabled(true);
+                            }
+
+                    }else{
+                        JOptionPane.showConfirmDialog(null, "CPF inválido");
                     }
-
-            }else{
-                JOptionPane.showConfirmDialog(null, "CPF inválido");
+                }
             }
-        }     
+      }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void txtTaxaComissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaxaComissaoActionPerformed
