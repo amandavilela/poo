@@ -1,5 +1,11 @@
 package fatec.poo.view;
 
+import fatec.poo.dao.Conexao;
+import fatec.poo.dao.DaoPedido;
+import fatec.poo.model.Pedido;
+
+import javax.swing.JOptionPane;
+
 public class GuiEmitirPedido extends javax.swing.JFrame {
 
 
@@ -22,7 +28,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         pnlPedido = new javax.swing.JPanel();
         lblNumeroPedido = new javax.swing.JLabel();
         txtNumeroPedido = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnConsultarPedido = new javax.swing.JButton();
         lblDataPedido = new javax.swing.JLabel();
         txtDataPedido = new javax.swing.JFormattedTextField();
         pnlCliente = new javax.swing.JPanel();
@@ -49,6 +55,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Emitir Pedido");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btnIncluirPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/save.png"))); // NOI18N
         btnIncluirPedido.setText("Incluir");
@@ -101,7 +112,12 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
 
         lblNumeroPedido.setText("Número do Pedido");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnConsultarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnConsultarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarPedidoActionPerformed(evt);
+            }
+        });
 
         lblDataPedido.setText("Data do Pedido");
 
@@ -118,8 +134,8 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addComponent(btnConsultarPedido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
                 .addComponent(lblDataPedido)
                 .addGap(18, 18, 18)
                 .addComponent(txtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -132,7 +148,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addGroup(pnlPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtDataPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDataPedido)
-                    .addComponent(jButton1)
+                    .addComponent(btnConsultarPedido)
                     .addComponent(txtNumeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNumeroPedido))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -208,7 +224,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addComponent(txtCpfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addComponent(jlblCpfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -316,7 +332,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
                 .addGroup(pnlProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarItem)
                     .addComponent(btnRemoverItem))
-                .addGap(18, 26, Short.MAX_VALUE)
+                .addGap(18, 34, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(pnlProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,6 +442,46 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void btnConsultarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPedidoActionPerformed
+        pedido = null;
+        pedido = daoPedido.consultar(txtNumeroPedido.getText());
+
+        if (pedido == null) {
+            txtNumeroPedido.setEnabled(false);
+            txtCpfCliente.setEnabled(true);
+            txtCpfVendedor.setEnabled(true);
+            txtDataPedido.setEnabled(true);
+
+            btnConsultarPedido.setEnabled(false);
+            btnIncluirPedido.setEnabled(true);
+            btnAlterarPedido.setEnabled(false);
+            btnExcluirPedido.setEnabled(false);
+            
+        } else {
+            txtNumeroPedido.setText(Integer.toString(pedido.getNumero()));
+            txtCpfCliente.setText(pedido.getCliente().getCpf());
+            txtCpfVendedor.setText(pedido.getVendedor().getCpf());
+            txtDataPedido.setText(pedido.getDataEmissaoPedido());
+
+            txtNumeroPedido.setEnabled(false); 
+            txtCpfCliente.setEnabled(false); 
+            txtCpfVendedor.setEnabled(false);
+            txtDataPedido.setEnabled(false);
+
+            btnConsultarPedido.setEnabled(false);
+            btnIncluirPedido.setEnabled(false);
+            btnAlterarPedido.setEnabled(true);
+            btnExcluirPedido.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnConsultarPedidoActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("IBD0020030481323008","IBD0020030481323008");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        daoPedido = new DaoPedido(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -464,11 +520,11 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarItem;
     private javax.swing.JButton btnAlterarPedido;
+    private javax.swing.JButton btnConsultarPedido;
     private javax.swing.JButton btnExcluirPedido;
     private javax.swing.JButton btnIncluirPedido;
     private javax.swing.JButton btnRemoverItem;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -498,4 +554,7 @@ public class GuiEmitirPedido extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumeroPedido;
     private javax.swing.JTextField txtQuantidadeVendida;
     // End of variables declaration//GEN-END:variables
+    private DaoPedido daoPedido=null;
+    private Pedido pedido=null;
+    private Conexao conexao=null;
 }

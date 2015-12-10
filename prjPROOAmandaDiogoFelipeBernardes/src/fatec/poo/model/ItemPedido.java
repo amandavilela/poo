@@ -25,6 +25,7 @@ public class ItemPedido {
  
     public void setProduto(Produto produto) {
         this.produto = produto;
+        produto.setQtdeDisponivel(produto.getQtdeDisponivel() - this.getQuantidade());
     }
 
     public Produto getProduto() {

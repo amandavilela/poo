@@ -80,46 +80,54 @@ public class Pessoa {
         this.nome = nome;
     }
     
-    public boolean validaCPF(String cpf) {
-        int cpfArray[] = new int[11], dv1=0, dv2=0;  
-  
-        cpf = cpf.replace(".", "");  
-        cpf = cpf.replace("-", "");
+    static public boolean validaCPF (String strCpf ){
+      int     d1, d2;
+      int     digito1, digito2, resto;
+      int     digitoCPF;
+      String  nDigResult;
 
-        if (this.cpf.length()!=11) {  
-            return false;  
-        }
+      d1 = d2 = 0;
+      digito1 = digito2 = resto = 0;
 
-        for (int i=0;i<11;i++) {  
-            cpfArray[i] = Integer.parseInt(this.cpf.substring(i, i+1));
-        }
-        
-        for (int i=0;i<9;i++) {  
-            dv1 += cpfArray[i] * (i+1);
-        }
-        
-        cpfArray[9] = dv1 = dv1 % 11;
-        
-        for (int i=0;i<10;i++) {  
-            dv2 += cpfArray[i] * i;
-        }
-        
-        cpfArray[10] = dv2 = dv2 % 11;  
-        
-        if (dv1>9) {
-            cpfArray[9]=0;
-        }
-        
-        if (dv2>9) {
-            cpfArray[10]=0;  
-        }
-        
-        if (Integer.parseInt(this.cpf.substring(9,10))!= cpfArray[9] || Integer.parseInt(this.cpf.substring(10,11))!=cpfArray[10]) {
-            return true;
-        }
-        else {
-            return false; 
-        }
-    }
+      for (int nCount = 1; nCount < strCpf.length() -1; nCount++)
+      {
+         digitoCPF = Integer.valueOf (strCpf.substring(nCount -1, nCount)).intValue();
+
+         //multiplique a ultima casa por 2 a seguinte por 3 a seguinte por 4 e assim por diante.
+         d1 = d1 + ( 11 - nCount ) * digitoCPF;
+
+         //para o segundo digito repita o procedimento incluindo o primeiro digito calculado no passo anterior.
+         d2 = d2 + ( 12 - nCount ) * digitoCPF;
+      };
+
+      //Primeiro resto da divisão por 11.
+      resto = (d1 % 11);
+
+      //Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11 menos o resultado anterior.
+      if (resto < 2)
+         digito1 = 0;
+      else
+         digito1 = 11 - resto;
+
+      d2 += 2 * digito1;
+
+      //Segundo resto da divisão por 11.
+      resto = (d2 % 11);
+
+      //Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11 menos o resultado anterior.
+      if (resto < 2)
+         digito2 = 0;
+      else
+         digito2 = 11 - resto;
+
+      //Digito verificador do CPF que está sendo validado.
+      String nDigVerific = strCpf.substring (strCpf.length()-2, strCpf.length());
+
+      //Concatenando o primeiro resto com o segundo.
+      nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
+
+      //comparar o digito verificador do cpf com o primeiro resto + o segundo resto.
+      return nDigVerific.equals(nDigResult);
+   }
     
 }

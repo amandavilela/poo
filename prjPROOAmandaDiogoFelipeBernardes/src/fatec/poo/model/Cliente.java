@@ -25,7 +25,7 @@ public class Cliente extends Pessoa{
     }
     
      public void addPedido(Pedido pedido){
-        this.limiteCred -= pedido.getValorTotal();
+    //    this.limiteCred -= pedido.getValorTotal();
         pedidos.add(pedido);
         pedido.setCliente(this);
     }

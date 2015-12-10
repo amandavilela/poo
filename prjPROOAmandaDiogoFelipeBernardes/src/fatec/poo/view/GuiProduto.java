@@ -187,7 +187,12 @@ public class GuiProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+
         produto = new Produto(Integer.parseInt(txtCodigo.getText()), txtDescricao.getText());
+        
+        produto.setEstoqueMin(Integer.parseInt(txtEstoqueMin.getText()));
+        produto.setQtdeDisponivel(Integer.parseInt(txtQtdDisponivel.getText()));
+        produto.setPrecoUnit(Double.parseDouble(txtPrecUnit.getText()));
         daoProduto.inserir(produto);
          
         txtCodigo.setText("");
@@ -197,7 +202,8 @@ public class GuiProduto extends javax.swing.JFrame {
         txtQtdDisponivel.setText("");
         
         txtCodigo.setEnabled(true);
-        txtDescricao.requestFocus();
+        txtCodigo.requestFocus();
+        txtDescricao.setEnabled(false);
         txtEstoqueMin.setEnabled(false);
         txtPrecUnit.setEnabled(false);
         txtQtdDisponivel.setEnabled(false);
@@ -248,7 +254,8 @@ public class GuiProduto extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){
             produto.setEstoqueMin(Integer.parseInt(txtEstoqueMin.getText()));
-            produto.setPrecoUnit(Integer.parseInt(txtPrecUnit.getText()));
+            produto.setQtdeDisponivel(Integer.parseInt(txtQtdDisponivel.getText()));
+            produto.setPrecoUnit(Double.parseDouble(txtPrecUnit.getText()));
             daoProduto.alterar(produto);
         } 
         
@@ -261,7 +268,6 @@ public class GuiProduto extends javax.swing.JFrame {
         txtCodigo.setEnabled(true);
         txtCodigo.requestFocus();
         
-        txtCodigo.setEnabled(false);
         txtDescricao.setEnabled(false);
         txtEstoqueMin.setEnabled(false);
         txtPrecUnit.setEnabled(false);
