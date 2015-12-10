@@ -18,7 +18,7 @@ public class DaoProduto {
     public void inserir (Produto produto) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO pedido_poo(codigo, descricao, qtdeDisponivel, precoUnit, estoqueMin) VALUES(?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO produto_poo(codigo, descricao, qtdeDisponivel, precoUnit, estoqueMin) VALUES(?,?,?,?,?)");
             ps.setInt(1, produto.getCodigo());
             ps.setString(2, produto.getDescricao());
             ps.setInt(3, produto.getQtdeDisponivel());
@@ -34,13 +34,15 @@ public class DaoProduto {
     public void alterar (Produto produto) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE produto_poo set codigo = ?, descricao = ?, qtdeDisponivel = ?, precoUnit = ?, estoqueMin = ?");
+            ps = conn.prepareStatement("UPDATE produto_poo set descricao = ?, "
+                    + "                                     qtdedisponivel = ?, "
+                    + "                                     precounit = ?, "
+                    + "                                     estoquemin = ?");
             
-            ps.setInt(1, produto.getCodigo());
-            ps.setString(2, produto.getDescricao());
-            ps.setInt(3, produto.getQtdeDisponivel());
-            ps.setDouble(4, produto.getPrecoUnit());
-            ps.setInt(5, produto.getEstoqueMin());
+            ps.setString(1, produto.getDescricao());
+            ps.setInt(2, produto.getQtdeDisponivel());
+            ps.setDouble(3, produto.getPrecoUnit());
+            ps.setInt(4, produto.getEstoqueMin());
            
             ps.execute();
         } catch (SQLException ex) {
@@ -59,9 +61,9 @@ public class DaoProduto {
             
             if (rs.next() == true) {
                 p = new Produto (codigo, rs.getString("descricao"));
-                p.setQtdeDisponivel(rs.getInt("qtdeDisponivel"));
-                p.setPrecoUnit(rs.getDouble("precoUnit"));
-                p.setEstoqueMin(rs.getInt("estoqueMin"));
+                p.setQtdeDisponivel(rs.getInt("qtdedisponivel"));
+                p.setPrecoUnit(rs.getDouble("precounit"));
+                p.setEstoqueMin(rs.getInt("estoquemin"));
             }
         }
         catch (SQLException ex) { 

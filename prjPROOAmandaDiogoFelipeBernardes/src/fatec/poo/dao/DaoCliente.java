@@ -18,7 +18,7 @@ public class DaoCliente {
     public void inserir (Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO cliente(cpf, nome, endereco, cidade, cep, uf, ddd, telefone, limite_cred, limite_disp) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO cliente_poo(cpf, nome, endereco, cidade, cep, uf, ddd, telefone, limitecred, limitedisp) VALUES(?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, cliente.getCpf());
             ps.setString(2, cliente.getNome());
             ps.setString(3, cliente.getEndereco());
@@ -39,7 +39,7 @@ public class DaoCliente {
     public void alterar (Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE cliente set nome = ?, endereco = ?, cidade = ?, cep = ?, uf = ?, ddd = ?, telefone = ?, limite_cred = ?, limite_disp = ? where cpf = ?");
+            ps = conn.prepareStatement("UPDATE cliente_poo set nome = ?, endereco = ?, cidade = ?, cep = ?, uf = ?, ddd = ?, telefone = ?, limitecred = ?, limitedisp = ? where cpf = ?");
             
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getEndereco());
@@ -49,8 +49,8 @@ public class DaoCliente {
             ps.setString(6, cliente.getDdd());
             ps.setString(7, cliente.getTelefone());
             ps.setDouble(8, cliente.getLimiteCred());
-            ps.setDouble(9, cliente.getLimiteDisp());
-           
+            ps.setDouble(9, cliente.getLimiteDisp()); 
+            ps.setString(10, cliente.getCpf());
             ps.execute();
         } catch (SQLException ex) {
              System.out.println(ex.toString());   
@@ -67,13 +67,13 @@ public class DaoCliente {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next() == true) {
-                c = new Cliente (cpf, rs.getString("nome"), rs.getDouble("limite_cred"));
+                c = new Cliente (cpf, rs.getString("nome"), rs.getDouble("limitecred"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setUf(rs.getString("uf"));
                 c.setCep(rs.getString("cep"));
                 c.setCidade(rs.getString("cidade"));
                 c.setDdd(rs.getString("ddd"));
                 c.setTelefone(rs.getString("telefone"));
-                c.setUf(rs.getString("uf"));
-                c.setEndereco(rs.getString("endereco"));
             }
         }
         catch (SQLException ex) { 
@@ -85,7 +85,7 @@ public class DaoCliente {
      public void excluir(Cliente cliente) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM cliente where cpf = ?");
+            ps = conn.prepareStatement("DELETE FROM cliente_poo where cpf = ?");
             
             ps.setString(1, cliente.getCpf());
                       

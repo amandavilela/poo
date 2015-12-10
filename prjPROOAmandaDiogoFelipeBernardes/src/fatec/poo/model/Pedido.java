@@ -39,17 +39,31 @@ public class Pedido {
         this.status = false;
     }
 
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public void addItem(ItemPedido itemPedido){
         itens.add(itemPedido);
-        Produto.setQtdeDisponivel(itemPedido.getQuantidade());
+        itemPedido.setPedido(this);
     }
      
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
     
     public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
-    }    
+    }
+    
+    
     
 }

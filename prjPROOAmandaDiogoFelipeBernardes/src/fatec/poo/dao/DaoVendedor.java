@@ -18,7 +18,7 @@ public class DaoVendedor {
     public void inserir (Vendedor vendedor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO vendedor(cpf, nome, endereco, cidade, cep, uf, ddd, telefone, salBase, comissao) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO vendedor_poo(cpf, nome, endereco, cidade, cep, uf, ddd, telefone, salBase, comissao) VALUES(?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, vendedor.getCpf());
             ps.setString(2, vendedor.getNome());
             ps.setString(3, vendedor.getEndereco());
@@ -39,7 +39,7 @@ public class DaoVendedor {
     public void alterar (Vendedor vendedor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE vendedor set nome = ?, endereco = ?, cidade = ?, cep = ?, uf = ?, ddd = ?, telefone = ?, limite_cred = ?, limite_disp = ? where cpf = ?");
+            ps = conn.prepareStatement("UPDATE vendedor_poo set nome = ?, endereco = ?, cidade = ?, cep = ?, uf = ?, ddd = ?, telefone = ?, salBase = ?, comissao = ? where cpf = ?");
             
             ps.setString(1, vendedor.getNome());
             ps.setString(2, vendedor.getEndereco());
@@ -50,6 +50,7 @@ public class DaoVendedor {
             ps.setString(7, vendedor.getTelefone());
             ps.setDouble(8, vendedor.getSalarioBase());
             ps.setDouble(9, vendedor.getComissao());
+            ps.setString(10, vendedor.getCpf());
            
             ps.execute();
         } catch (SQLException ex) {
@@ -62,12 +63,23 @@ public class DaoVendedor {
        
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("SELECT * from vendedor where cpf = ?");
+            ps = conn.prepareStatement("SELECT * from vendedor_poo where cpf = ?");
             ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
             
             if (rs.next() == true) {
-                v = new Vendedor (cpf, rs.getString("nome"), Double.parseDouble(rs.getString("salBase")));
+                v = new Vendedor (cpf, rs.getString("nome"), Double.parseDouble(rs.getString("salBase")) );
+                v.setCpf(rs.getString("cpf"));
+                v.setNome(rs.getString("nome"));
+                v.setEndereco(rs.getString("endereco"));
+                v.setCidade(rs.getString("cidade"));
+                v.setUf(rs.getString("uf"));
+                v.setCep(rs.getString("cep"));
+                v.setDdd(rs.getString("ddd"));
+                v.setTelefone(rs.getString("telefone"));
+                v.setSalarioBase(Double.parseDouble(rs.getString("salbase")) );
+                v.setComissao(Double.parseDouble(rs.getString("comissao")));
+                
             }
         }
         catch (SQLException ex) { 
@@ -79,7 +91,7 @@ public class DaoVendedor {
      public void excluir(Vendedor vendedor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM vendedor where cpf = ?");
+            ps = conn.prepareStatement("DELETE FROM vendedor_poo where cpf = ?");
             
             ps.setString(1, vendedor.getCpf());
                       

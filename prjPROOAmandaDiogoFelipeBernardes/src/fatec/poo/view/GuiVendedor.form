@@ -32,11 +32,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblSalBase" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                              <Component id="txtSalBase" min="-2" pref="173" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="lblSalBase" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCidade" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="lblCep" min="-2" max="-2" attributes="0"/>
@@ -50,7 +46,10 @@
                                       <Component id="cbxUf" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="txtCep" min="-2" pref="173" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txtCep" min="-2" pref="173" max="-2" attributes="0"/>
+                                          <Component id="txtSalBase" min="-2" pref="173" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace pref="162" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
@@ -172,7 +171,7 @@
                   <Component id="btnIncluir" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnConsultar" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
